@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
+import { ActionButton } from "../components/ActionButton";
+import { FokusButton } from "../components/FokusButton";
+import { Timer } from "../components/Timer";
 
 const pomodoro = [
   {
@@ -25,11 +28,6 @@ const pomodoro = [
 export default function Index() {
 
   const [timerType, setTimerType] = useState(pomodoro[0]);
-  const timerDate = new Date(timerType.initialValue * 1000);
-  const timerOptions = {
-    minute: "2-digit",
-    second: "2-digit",
-  };
 
   return (
     <View style={styles.container}>
@@ -39,25 +37,20 @@ export default function Index() {
         <View style={styles.categories}>
 
           {pomodoro.map((item) => (
-            <Pressable
+            <ActionButton
               key={item.id}
-              style={timerType.id === item.id ? styles.categoriesTextActive : null}
+              active={timerType.id === item.id}
               onPress={() => setTimerType(item)}
-            >
-              <Text style={styles.categoriesText}>
-                {item.displayText}
-              </Text>
-            </Pressable>
+              displayText={item.displayText}
+            />
           ))}
 
         </View>
 
-        <Text style={styles.timer}>
-          {timerDate.toLocaleTimeString("pt-BR", timerOptions)}
-        </Text>
-        <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Começar</Text>
-        </Pressable>
+        <Timer totalSeconds={timerType.initialValue} />
+
+        <FokusButton />
+
       </View>
 
       <View style={styles.footer}>
@@ -80,9 +73,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#021123",
     gap: 40,
   },
-  imagem: {
-    width: "80%",
-  },
   actions: {
     padding: 24,
     backgroundColor: "#14448080",
@@ -96,31 +86,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-  },
-  categoriesTextActive: {
-    backgroundColor: "#144480",
-    borderRadius: 8,
-  },
-  categoriesText: {
-    color: "#FFF",
-    fontSize: 12.5,
-    padding: 8,
-  },
-  timer: {
-    fontSize: 54,
-    color: "#fff",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  button: {
-    backgroundColor: "#BB72FF",
-    padding: 8,
-    borderRadius: 32,
-  },
-  buttonText: {
-    textAlign: "center",
-    color: "#021123",
-    fontSize: 18,
   },
   footer: {
     width: "80%",
