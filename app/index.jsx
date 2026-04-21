@@ -1,12 +1,60 @@
+import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
+const pomodoro = [
+  {
+    id: 'focus',
+    initialValue: 25,
+    image: require("../assets/images/pomodoro.png"),
+    displayText: "Foco",
+  },
+  {
+    id: 'short',
+    initialValue: 5,
+    image: require("../assets/images/short.png"),
+    displayText: "Pausa Curta",
+  },
+  {
+    id: 'long',
+    initialValue: 15,
+    image: require("../assets/images/long.png"),
+    displayText: "Pausa Longa",
+  },
+]
+
 export default function Index() {
+
+  const [timerType, setTimerType] = useState(pomodoro[0]);
+  const timerDate = new Date(timerType.initialValue * 1000);
+  const timerOptions = {
+    minute: "2-digit",
+    second: "2-digit",
+  };
+
   return (
     <View style={styles.container}>
-      <Image source={require("../assets/images/pomodoro.png")}></Image>
+      <Image source={timerType.image}></Image>
 
       <View style={styles.actions}>
-        <Text style={styles.timer}>25:00</Text>
+        <View style={styles.categories}>
+
+          {pomodoro.map((item) => (
+            <Pressable
+              key={item.id}
+              style={timerType.id === item.id ? styles.categoriesTextActive : null}
+              onPress={() => setTimerType(item)}
+            >
+              <Text style={styles.categoriesText}>
+                {item.displayText}
+              </Text>
+            </Pressable>
+          ))}
+
+        </View>
+
+        <Text style={styles.timer}>
+          {timerDate.toLocaleTimeString("pt-BR", timerOptions)}
+        </Text>
         <Pressable style={styles.button}>
           <Text style={styles.buttonText}>Começar</Text>
         </Pressable>
@@ -32,6 +80,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#021123",
     gap: 40,
   },
+  imagem: {
+    width: "80%",
+  },
   actions: {
     padding: 24,
     backgroundColor: "#14448080",
@@ -41,10 +92,24 @@ const styles = StyleSheet.create({
     borderColor: "#144480",
     gap: 32,
   },
+  categories: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  categoriesTextActive: {
+    backgroundColor: "#144480",
+    borderRadius: 8,
+  },
+  categoriesText: {
+    color: "#FFF",
+    fontSize: 12.5,
+    padding: 8,
+  },
   timer: {
     fontSize: 54,
     color: "#fff",
-    fontweight: "bold",
+    fontWeight: "bold",
     textAlign: "center",
   },
   button: {
@@ -59,6 +124,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     width: "80%",
+    paddingBottom: 64,
   },
   footerText: {
     color: "#98A0A8",
