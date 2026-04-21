@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { ActionButton } from "../components/ActionButton";
 import { FokusButton } from "../components/FokusButton";
+import { Footer } from "../components/Footer";
 import { Timer } from "../components/Timer";
 
 const pomodoro = [
@@ -53,14 +54,7 @@ export default function Index() {
 
       </View>
 
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>
-          Projeto fictício e sem fins comerciais
-        </Text>
-        <Text style={styles.footerText}>
-          Desenvolvido por Alura
-        </Text>
-      </View>
+      <Footer />
     </View>
   );
 }
@@ -86,14 +80,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-  },
-  footer: {
-    width: "80%",
-    paddingBottom: 64,
-  },
-  footerText: {
-    color: "#98A0A8",
-    textAlign: "center",
-    fontSize: 12.5,
   },
 });
