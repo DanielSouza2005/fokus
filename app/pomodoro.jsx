@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { ActionButton } from "../components/ActionButton";
 import { FokusButton } from "../components/FokusButton";
 import { Footer } from "../components/Footer";
@@ -75,7 +76,7 @@ export default function Pomodoro() {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image source={timerType.image}></Image>
 
       <View style={styles.actions}>
@@ -110,7 +111,7 @@ export default function Pomodoro() {
       </View>
 
       <Footer />
-    </View>
+    </SafeAreaView>
   );
 }
 

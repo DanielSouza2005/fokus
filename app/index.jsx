@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
 import { Image, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { FokusButton } from "../components/FokusButton";
 import { Footer } from "../components/Footer";
 
@@ -8,7 +9,7 @@ export default function Index() {
   const router = useRouter();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image
         source={require("../assets/images/Logo.png")}
       />
@@ -23,13 +24,13 @@ export default function Index() {
         />
 
         <FokusButton
-          onPress={() => { router.push("/pomodoro") }}
+          onPress={() => { router.navigate("/pomodoro") }}
           title="Quero Iniciar!"
         />
       </View>
 
       <Footer />
-    </View>
+    </SafeAreaView>
   );
 }
 
