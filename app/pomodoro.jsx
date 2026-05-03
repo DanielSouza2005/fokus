@@ -49,6 +49,11 @@ export default function Pomodoro() {
     clearTimer();
   }
 
+  const resetTimer = () => {
+    clearTimer();
+    setSeconds(timerType.initialValue);
+  }
+
   const toggleTimer = () => {
     if (timerRef.current) {
       clearTimer();
@@ -89,11 +94,18 @@ export default function Pomodoro() {
 
         <Timer totalSeconds={seconds} />
 
-        <FokusButton
-          onPress={toggleTimer}
-          title={timerRunning ? "Pausar" : "Começar"}
-          icon={timerRunning ? <IconPause /> : <IconPlay />}
-        />
+        <View style={styles.buttons}>
+          <FokusButton
+            onPress={toggleTimer}
+            title={timerRunning ? "Pausar" : "Começar"}
+            icon={timerRunning ? <IconPause /> : <IconPlay />}
+          />
+
+          <FokusButton
+            onPress={resetTimer}
+            title="Reiniciar"
+          />
+        </View>
 
       </View>
 
@@ -123,5 +135,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+  },
+  buttons: {
+    gap: 16,
   },
 });
